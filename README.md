@@ -9,7 +9,7 @@ Features The project interactivity includes:
 - Liking and unliking posts, commenting in posts
 - Sign up and Sign in
 
-Deployed via TBD [GitHub Pages](https://github.com/lindakovacs/UAlbany-Campus-Portal-Theme)
+Deployed via [GitHub Pages](https://lindakovacs.github.io/UAlbany-Campus-Portal-Theme/)
 
 ## Pages
 
@@ -73,4 +73,4 @@ Stack: HTML5, CSS3, JavaScript/JSX, DOM, Debugging Git, Git/Github, Form validat
 
 [GitHub Repository - Version Control & Collaboration​](https://github.com/lindakovacs/UAlbany-Campus-Portal-Theme)
 
-GitHub Pages – Static Website Deployment & Hosting
+[GitHub Pages – Static Website Deployment & Hosting](https://lindakovacs.github.io/UAlbany-Campus-Portal-Theme/)
