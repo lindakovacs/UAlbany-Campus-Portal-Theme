@@ -55,9 +55,16 @@
         Don't have an account? <a href="register.html">Sign Up</a>
       </p>
     </section>
-    <footer class="footer">
-      <p>Copyright &copy; 2026 Linda Kovacs | UAlbany Campus</p>
-    </footer>
+    <!-- Footer loaded from modules -->
+    <div id="footer-container"></div>
+    <script>
+      fetch('modules/footer.html')
+        .then((response) => response.text())
+        .then((html) => {
+          document.getElementById('footer-container').innerHTML = html;
+        })
+        .catch((error) => console.error('Error loading footer:', error));
+    </script>
     <!-- Chat widget loaded from modules -->
     <div id="chat-container"></div>
     <script>
