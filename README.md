@@ -9,7 +9,7 @@ Features The project interactivity includes:
 - Liking and unliking posts, commenting in posts
 - Sign up and Sign in
 
-Deployed via TBD [GitHub Pages]: (https://github.com/lindakovacs/UAlbany-Campus-Portal-Theme)
+Deployed via TBD [GitHub Pages](https://github.com/lindakovacs/UAlbany-Campus-Portal-Theme)
 
 ## Pages
 
@@ -24,6 +24,7 @@ Deployed via TBD [GitHub Pages]: (https://github.com/lindakovacs/UAlbany-Campus-
 
 - modules/navbar.html
 - modules/chat.html
+- modules/footer.html
 
 ## Styles & Assets
 
@@ -54,9 +55,22 @@ Open any HTML file in your browser (for example, in VS Code, right-click on your
 ├── img/
 └── modules/
 	├── chat.html
+	├── footer.html
 	└── navbar.html
 ```
 
 ## Technologies
 
 Stack: HTML5, CSS3, JavaScript/JSX, DOM, Debugging Git, Git/Github, Form validation, Database, GitHub Pages
+
+## Project Links
+
+[Figma Desktop Wireframe Prototype](https://www.figma.com/proto/PiQZQ5yft44BaGyUbHGRRk/UAlbany-Campus?node-id=9-4&p=f&t=wNPUjPe54NW14knE-1&scaling=min-zoom&content-scaling=fixed&page-id=9%3A2&starting-point-node-id=9%3A4)​
+
+[Figma Mobile Wireframe Prototype​](https://www.figma.com/proto/PiQZQ5yft44BaGyUbHGRRk/UAlbany-Campus?node-id=37-268&t=F4vHdLp9OArwFI2V-1&scaling=min-zoom&content-scaling=fixed&page-id=37%3A2&starting-point-node-id=37%3A268&show-proto-sidebar=1)
+
+[Trello Board - Project Management](https://trello.com/b/bbsR787B/ualbany-campus-portal)​
+
+[GitHub Repository - Version Control & Collaboration​](https://github.com/lindakovacs/UAlbany-Campus-Portal-Theme)
+
+GitHub Pages – Static Website Deployment & Hosting
