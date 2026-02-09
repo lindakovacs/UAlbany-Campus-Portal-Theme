@@ -1,0 +1,49 @@
+<!-- Chat widget (checkbox-based, works without JS) -->
+<input type="checkbox" id="chat-toggle-checkbox" class="chat-checkbox" />
+
+<label
+  for="chat-toggle-checkbox"
+  class="chat-fab"
+  id="chat-toggle"
+  title="Open chat"
+  aria-hidden="false"
+>
+  <i class="fas fa-comments" aria-hidden="true"></i>
+  <span class="sr-only">Open chat</span>
+</label>
+
+<div class="chat-overlay" tabindex="-1" aria-hidden="true"></div>
+
+<aside class="chat-panel" role="dialog" aria-label="AI chat">
+  <header class="chat-header">
+    <strong>AI Assistant</strong>
+    <label
+      for="chat-toggle-checkbox"
+      class="chat-close"
+      title="Close chat"
+      aria-hidden="true"
+      >×</label
+    >
+  </header>
+  <div
+    class="chat-messages"
+    id="chat-messages"
+    role="log"
+    aria-live="polite"
+  ></div>
+  <form id="chat-form" class="chat-form" autocomplete="off">
+    <input
+      id="chat-input"
+      class="chat-input"
+      type="text"
+      placeholder="Ask me something..."
+      required
+    />
+    <button class="btn" type="submit">Send</button>
+  </form>
+</aside>
+
+<!-- Back-to-top as anchor so it works without JS -->
+<a href="#top" class="back-to-top" aria-label="Back to top"
+  ><i class="fas fa-chevron-up" aria-hidden="true"></i
+></a>
