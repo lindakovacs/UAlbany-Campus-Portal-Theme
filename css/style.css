@@ -701,6 +701,42 @@ img {
   flex-basis: 20%;
 }
 
+/* Posts Page */
+.post-form .post-form-header {
+  background: var(--primary-color);
+  padding: 0.5rem;
+}
+
+:root {
+  /* primary theme color (kept purple for site accents) */
+  --primary-color: #9032ed;
+  --nav-color: #f7941d; /* navbar-only orange (from icon.png) */
+  --dark-color: #787d82;
+  --light-color: #f4f4f4;
+  /* distance between fixed navbar and page content (adjustable) */
+  --nav-offset: 7.5rem;
+  --danger-color: #da1a2d;
+  --success-color: #256dfb;
+}
+
+.post img {
+  width: 100px;
+}
+
+.post .comment-count {
+  background: var(--light-color);
+  color: var(--primary-color);
+  padding: 0.1rem 0.2rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+}
+
+.post .post-date {
+  color: #aaa;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
 /* Mobile Styles */
 @media (max-width: 700px) {
   .container {
