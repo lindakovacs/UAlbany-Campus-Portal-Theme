@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="author" content="Linda Kovacs">
+    <meta name="author" content="Linda Kovacs" />
     <link
       href="https://fonts.googleapis.com/css?family=Raleway"
       rel="stylesheet"
@@ -23,33 +23,16 @@
     <!-- top anchor for Back-to-Top -->
     <a id="top"></a>
 
-    <!-- Inline navbar (CSS-only prototype) -->
-    <nav class="navbar bg-dark" role="navigation" aria-label="Main Navigation">
-      <!-- hidden checkbox drives the mobile hamburger without JS -->
-      <input type="checkbox" id="nav-toggle-checkbox" class="nav-checkbox" />
-
-      <div class="nav-brand">
-        <h1>
-          <a href="index.html"><img src="img/icon.png" alt="UAlbany logo" class="nav-logo"> UAlbany Campus</a>
-        </h1>
-        <!-- label acts as hamburger toggle on small screens -->
-        <label for="nav-toggle-checkbox" class="nav-toggle" aria-controls="nav-menu" aria-label="Toggle navigation">
-          <span class="sr-only">Toggle navigation</span>
-          <i class="fas fa-bars" aria-hidden="true"></i>
-        </label>
-      </div>
-
-      <div id="nav-menu" class="nav-menu">
-       <ul>
-          <li><a href="https://www.albany.edu/myualbany" target="_blank" rel="noopener noreferrer"><i class="fas fa-university"></i> MyUAlbany</a></li>
-          <li><a href="dashboard.html" title="Dashboard"><i class="fas fa-home"></i> <span class="hide-sm">Dashboard</span></a></li>
-          <li><a href="profiles.html"><i class="fas fa-users"></i> Students</a></li>
-          <li><a href="posts.html"><i class="fas fa-comments"></i> Posts</a></li>
-          <li><a id="nav-auth" href="create-profile.html" title="Profile"><i class="fas fa-user"></i> <span class="hide-sm">Profile</span></a></li>
-          <li><a id="nav-auth" href="login.html" title="Login"><i class="fas fa-sign-in-alt"></i> <span class="hide-sm">Login</span></a></li>
-        </ul>
-      </div>
-    </nav>
+    <!-- Navbar loaded from modules -->
+    <div id="navbar-container"></div>
+    <script>
+      fetch('modules/navbar.html')
+        .then((response) => response.text())
+        .then((html) => {
+          document.getElementById('navbar-container').innerHTML = html;
+        })
+        .catch((error) => console.error('Error loading navbar:', error));
+    </script>
     <section class="container">
       <a href="profiles.html" class="btn btn-light">Back To Profiles</a>
 
@@ -106,8 +89,8 @@
 
           <p>
             In 2020 I enrolled in a 10 months Full Stack Deeveloper online
-            Bootcamp at Tripple Ten, started in Februay 2020. During my
-            leanring journey I helped other students with questions related to
+            Bootcamp at Tripple Ten, started in Februay 2020. During my leanring
+            journey I helped other students with questions related to
             course/sprints assignements and projects. The curricullum provides a
             wide range of projects based on the following Full Stack Development
             technologies: HTML5, CSS3, flexbox, grid layout, BEM, Media queries,
@@ -225,7 +208,13 @@
     <!-- Inline chat partial (checkbox-based, works without JS) -->
     <input type="checkbox" id="chat-toggle-checkbox" class="chat-checkbox" />
 
-    <label for="chat-toggle-checkbox" class="chat-fab" id="chat-toggle" title="Open chat" aria-hidden="false">
+    <label
+      for="chat-toggle-checkbox"
+      class="chat-fab"
+      id="chat-toggle"
+      title="Open chat"
+      aria-hidden="false"
+    >
       <i class="fas fa-comments" aria-hidden="true"></i>
       <span class="sr-only">Open chat</span>
     </label>
@@ -235,16 +224,35 @@
     <aside class="chat-panel" role="dialog" aria-label="AI chat">
       <header class="chat-header">
         <strong>AI Assistant</strong>
-        <label for="chat-toggle-checkbox" class="chat-close" title="Close chat" aria-hidden="true">×</label>
+        <label
+          for="chat-toggle-checkbox"
+          class="chat-close"
+          title="Close chat"
+          aria-hidden="true"
+          >×</label
+        >
       </header>
-      <div class="chat-messages" id="chat-messages" role="log" aria-live="polite"></div>
+      <div
+        class="chat-messages"
+        id="chat-messages"
+        role="log"
+        aria-live="polite"
+      ></div>
       <form id="chat-form" class="chat-form" autocomplete="off">
-        <input id="chat-input" class="chat-input" type="text" placeholder="Ask me something..." required />
+        <input
+          id="chat-input"
+          class="chat-input"
+          type="text"
+          placeholder="Ask me something..."
+          required
+        />
         <button class="btn" type="submit">Send</button>
       </form>
     </aside>
 
     <!-- Back-to-top as anchor so it works without JS -->
-    <a href="#top" class="back-to-top" aria-label="Back to top"><i class="fas fa-chevron-up" aria-hidden="true"></i></a>
+    <a href="#top" class="back-to-top" aria-label="Back to top"
+      ><i class="fas fa-chevron-up" aria-hidden="true"></i
+    ></a>
   </body>
 </html>
