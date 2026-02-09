@@ -509,6 +509,7 @@ img {
   /* add space below the fixed navbar so the landing text isn't hidden */
   padding-top: 10rem;
 }
+
 /* Profiles Page */
 .profile {
   display: grid;
