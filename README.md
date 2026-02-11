@@ -11,6 +11,18 @@ Features The project interactivity includes:
 
 Deployed via [GitHub Pages](https://lindakovacs.github.io/UAlbany-Campus-Portal-Theme/)
 
+## Project Team:
+
+- Maryam Sheikh: Project Manager​
+
+- Linda Kovacs: Software Developer Lead​
+
+- Anas Elkhiat: Quality Assurance Lead​
+
+- Tejas Kilaru: Accessibility & UX/UX Designer Lead​
+
+- Ian Walters: Security Lead​
+
 ## Pages
 
 - Home: index.html
