@@ -19,7 +19,7 @@ Deployed via [GitHub Pages](https://lindakovacs.github.io/UAlbany-Campus-Portal-
 
 - Anas Elkhiat: Quality Assurance Lead​
 
-- Tejas Kilaru: Accessibility & UX/UX Designer Lead​
+- Tejas Kilaru: Accessibility & UX/UI Designer Lead​
 
 - Ian Walters: Security Lead​
 
