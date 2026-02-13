@@ -24,7 +24,7 @@
     <a id="top"></a>
 
     <!-- Navbar loaded from modules -->
-    <div id="navbar-container"></div>
+    <header id="navbar-container"></header>
     <script>
       fetch('modules/navbar.html')
         .then((response) => response.text())
@@ -33,6 +33,7 @@
         })
         .catch((error) => console.error('Error loading navbar:', error));
     </script>
+    <main>
     <section class="container">
       <h1 class="large text-primary">Sign Up</h1>
       <p class="lead"><i class="fas fa-user"></i> Create Your Account</p>
@@ -69,8 +70,9 @@
         Already have an account? <a href="login.html">Sign In</a>
       </p>
     </section>
+    </main>
     <!-- Footer loaded from modules -->
-    <div id="footer-container"></div>
+    <footer id="footer-container"></footer>
     <script>
       fetch('modules/footer.html')
         .then((response) => response.text())

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="author" content="Linda Kovacs">
+    <meta name="author" content="Linda Kovacs" />
     <link
       href="https://fonts.googleapis.com/css?family=Raleway"
       rel="stylesheet"
@@ -24,7 +24,7 @@
     <a id="top"></a>
 
     <!-- Navbar loaded from modules -->
-    <div id="navbar-container"></div>
+    <header id="navbar-container"></header>
     <script>
       fetch('modules/navbar.html')
         .then((response) => response.text())
@@ -33,6 +33,7 @@
         })
         .catch((error) => console.error('Error loading navbar:', error));
     </script>
+    <main>
     <section class="container">
       <h1 class="large text-primary">Dashboard</h1>
       <p class="lead"><i class="fas fa-user"></i> Welcome Linda Kovacs</p>
@@ -132,8 +133,9 @@
         </button>
       </div>
     </section>
+    </main>
     <!-- Footer loaded from modules -->
-    <div id="footer-container"></div>
+    <footer id="footer-container"></footer>
     <script>
       fetch('modules/footer.html')
         .then((response) => response.text())

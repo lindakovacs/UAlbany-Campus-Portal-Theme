@@ -24,7 +24,7 @@
     <a id="top"></a>
 
     <!-- Navbar loaded from modules -->
-    <div id="navbar-container"></div>
+    <header id="navbar-container"></header>
     <script>
       fetch('modules/navbar.html')
         .then((response) => response.text())
@@ -33,6 +33,7 @@
         })
         .catch((error) => console.error('Error loading navbar:', error));
     </script>
+    <main>
     <section class="container">
       <a href="posts.html" class="btn">Back To Posts</a>
       <div class="post bg-white p-1 my-1">
@@ -121,8 +122,9 @@
         </div>
       </div>
     </section>
+    </main>
     <!-- Footer loaded from modules -->
-    <div id="footer-container"></div>
+    <footer id="footer-container"></footer>
     <script>
       fetch('modules/footer.html')
         .then((response) => response.text())

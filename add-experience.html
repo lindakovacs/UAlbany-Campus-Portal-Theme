@@ -24,7 +24,7 @@
     <a id="top"></a>
 
     <!-- Navbar loaded from modules -->
-    <div id="navbar-container"></div>
+    <header id="navbar-container"></header>
     <script>
       fetch('modules/navbar.html')
         .then((response) => response.text())
@@ -33,6 +33,7 @@
         })
         .catch((error) => console.error('Error loading navbar:', error));
     </script>
+    <main>
     <section class="container">
       <h1 class="large text-primary">Add An Experience</h1>
       <p class="lead">
@@ -73,8 +74,9 @@
         <a class="btn btn-light my-1" href="dashboard.html">Go Back</a>
       </form>
     </section>
+    </main>
     <!-- Footer loaded from modules -->
-    <div id="footer-container"></div>
+    <footer id="footer-container"></footer>
     <script>
       fetch('modules/footer.html')
         .then((response) => response.text())
