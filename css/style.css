@@ -102,7 +102,7 @@ img {
   padding: 1rem 0;
 }
 .py-2 {
-  padding: 2frem 0;
+  padding: 2rem 0;
 }
 .py-3 {
   padding: 3rem 0;
@@ -266,12 +266,11 @@ img {
   border: 1px solid #ccc;
 }
 
-.back-to-top,
-.back-to-top.button {
-  /* ensure the control is always visible and interactive */
+/* Back-to-top button */
+.back-to-top {
   position: fixed;
   right: 1rem;
-  bottom: 6.5rem; /* sits above chat controls */
+  bottom: 6.5rem;
   width: 44px;
   height: 44px;
   background: var(--primary-color);
@@ -283,17 +282,18 @@ img {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   z-index: 1202;
-  /* visible by default */
-  opacity: 1 !important;
-  visibility: visible !important;
-  transform: translateY(0) !important;
-  pointer-events: auto !important;
-  transition:
-    opacity 0.18s ease,
-    transform 0.18s ease,
-    visibility 0.18s;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
   border: 2px solid #fff;
   background-clip: padding-box;
+  text-decoration: none;
+  display: inline-flex;
+}
+
+.back-to-top:hover {
+  opacity: 0.8;
 }
 
 /* Ensure form submit buttons are positioned normally and remain clickable */
@@ -304,11 +304,6 @@ img {
   z-index: 1300;
 }
 
-/* If a duplicate back-to-top element exists (unexpected), keep only the last one visible */
-.back-to-top:not(:last-of-type) {
-  display: none !important;
-  pointer-events: none !important;
-}
 .form .social-input i.fa-linkedin {
   color: #0077b5;
 }
@@ -702,22 +697,6 @@ img {
 }
 
 /* Posts Page */
-.post-form .post-form-header {
-  background: var(--primary-color);
-  padding: 0.5rem;
-}
-
-:root {
-  /* primary theme color (kept purple for site accents) */
-  --primary-color: #9032ed;
-  --nav-color: #f7941d; /* navbar-only orange (from icon.png) */
-  --dark-color: #787d82;
-  --light-color: #f4f4f4;
-  /* distance between fixed navbar and page content (adjustable) */
-  --nav-offset: 7.5rem;
-  --danger-color: #da1a2d;
-  --success-color: #256dfb;
-}
 
 .post img {
   width: 100px;
@@ -920,11 +899,11 @@ img {
   overflow: hidden;
 }
 
-/* Back to top button */
-.back-to-top {
+/* Back-to-top button - hidden by default, shown with .show class */
+/* .back-to-top {
   position: fixed;
   right: 1rem;
-  bottom: 6.5rem; /* sits above chat controls */
+  bottom: 6.5rem; /* sits above chat controls * /
   width: 44px;
   height: 44px;
   background: var(--primary-color);
@@ -943,17 +922,16 @@ img {
     opacity 0.18s ease,
     transform 0.18s ease,
     visibility 0.18s;
-  /* add a white border so the circular button remains distinct on dark backgrounds */
   border: 2px solid #fff;
   background-clip: padding-box;
 }
+
 .back-to-top.show {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
-}
+} */
 
-/* slightly smaller on very small screens */
 @media (max-width: 420px) {
   .back-to-top {
     right: 0.75rem;
