@@ -34,6 +34,13 @@ body {
   line-height: 1.6;
   background-color: #fff;
   color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
 }
 
 a {
@@ -394,7 +401,7 @@ img {
 .form button[type='submit'] {
   position: relative;
   display: inline-block;
-  z-index: 1300;
+  z-index: auto;
 }
 
 .form .social-input i.fa-linkedin {
@@ -927,6 +934,7 @@ img {
   /* keep the footer band full-bleed like the fixed navbar */
   width: 100%;
   left: 0;
+  margin-top: auto;
 }
 
 /* align the footer content with the site's .container width */
