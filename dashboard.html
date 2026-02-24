@@ -37,6 +37,31 @@
     <section class="container">
       <h1 class="large text-primary">Dashboard</h1>
       <p class="lead"><i class="fas fa-user"></i> Welcome Linda Kovacs</p>
+      <div class="photo-card bg-white p-2 my-2">
+        <div class="photo-card-header">
+          <h2 class="text-primary">Profile Photo</h2>
+          <p class="text-dark">Upload or change your profile picture.</p>
+        </div>
+        <div class="photo-card-body">
+          <img
+            src="https://linda-kovacs.com/wp-content/uploads/2017/03/Linda-Kovacs.jpg?s=200"
+            alt="Profile preview"
+            class="profile-photo"
+          />
+          <div class="photo-actions">
+            <label class="btn btn-light" for="dashboard-photo">
+              <i class="fas fa-camera"></i> Choose Photo
+            </label>
+            <input
+              id="dashboard-photo"
+              type="file"
+              accept="image/*"
+              class="photo-input"
+            />
+            <small class="form-text">JPG or PNG, max 5MB.</small>
+          </div>
+        </div>
+      </div>
       <div class="dash-buttons">
         <a href="create-profile.html" class="btn btn-light"
           ><i class="fas fa-user-circle text-primary"></i> Edit Profile</a
