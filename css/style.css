@@ -6,6 +6,8 @@
   --light-color: #f4f4f4;
   /* distance between fixed navbar and page content (adjustable) */
   --nav-offset: 7.5rem;
+  /* consistent right spacing for floating controls */
+  --right-offset: 1rem;
   --danger-color: #da1a2d;
   --success-color: #256dfb;
 }
@@ -13,6 +15,11 @@
 /* enable smooth scrolling for anchor links (back-to-top) */
 html {
   scroll-behavior: smooth;
+}
+
+/* keep anchor targets visible under fixed navbar */
+#top {
+  scroll-margin-top: var(--nav-offset);
 }
 
 * {
@@ -269,7 +276,7 @@ img {
 /* Back-to-top button */
 .back-to-top {
   position: fixed;
-  right: 1rem;
+  right: var(--right-offset);
   bottom: 6.5rem;
   width: 44px;
   height: 44px;
@@ -285,7 +292,10 @@ img {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
-  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease,
+    visibility 0.18s;
   border: 2px solid #fff;
   background-clip: padding-box;
   text-decoration: none;
@@ -417,7 +427,7 @@ img {
     justify-content: center;
     /* inset the hamburger slightly from the right edge for breathing room */
     position: absolute;
-    right: 0.6rem;
+    right: var(--right-offset);
     top: 50%;
     transform: translateY(-50%);
     z-index: 1001;
@@ -838,7 +848,7 @@ img {
 /* fab toggle (label) */
 .chat-fab {
   position: fixed;
-  right: 20px;
+  right: var(--right-offset);
   bottom: 20px;
   width: 56px;
   height: 56px;
@@ -878,7 +888,7 @@ img {
 /* chat panel base */
 .chat-panel {
   position: fixed;
-  right: 20px;
+  right: var(--right-offset);
   bottom: 90px;
   width: 360px;
   max-width: calc(100% - 40px);
@@ -933,8 +943,11 @@ img {
 } */
 
 @media (max-width: 420px) {
+  :root {
+    --right-offset: 0.75rem;
+  }
+
   .back-to-top {
-    right: 0.75rem;
     bottom: 7.5rem;
     width: 40px;
     height: 40px;
