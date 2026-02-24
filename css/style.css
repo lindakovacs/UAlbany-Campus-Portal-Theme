@@ -59,6 +59,12 @@ img {
   margin-bottom: 3rem;
 }
 
+@media (min-width: 769px) {
+  .container {
+    margin-top: calc(var(--nav-offset) + 0.75rem);
+  }
+}
+
 /* Text Styles*/
 .x-large {
   font-size: 4rem;
@@ -490,6 +496,12 @@ img {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.nav-brand a {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
 }
 
 .nav-toggle {
