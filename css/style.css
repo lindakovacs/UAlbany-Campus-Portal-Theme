@@ -865,6 +865,56 @@ img {
   margin-bottom: 0.5rem;
 }
 
+/* Post interactions styling */
+.post button {
+  transition: all 0.2s ease;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.post button:hover {
+  transform: scale(1.05);
+}
+
+/* Like button liked state */
+.post button.liked {
+  background: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+}
+
+.post button.liked:hover {
+  background: #7a1fa3;
+  border-color: #7a1fa3;
+}
+
+/* Add visual feedback for liked state animation */
+@keyframes likeAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.post button.liked i {
+  animation: likeAnimation 0.3s ease;
+}
+
+/* Enhance touch targets for mobile accessibility */
+@media (max-width: 768px) {
+  .post button {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.6rem 1rem;
+    font-size: 1.1rem;
+  }
+}
+
 /* Mobile Styles */
 @media (max-width: 700px) {
   .container {
