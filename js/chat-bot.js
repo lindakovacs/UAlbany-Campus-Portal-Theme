@@ -1,5 +1,5 @@
 /**
- * Campus AI Chat Bot Module
+ * UAlbany AI Chat Bot Module
  * Provides chat functionality with campus information
  * Supports both mock responses and real API integration
  * Uses: Variables, Functions, Events, Loops, localStorage, DOM manipulation
@@ -101,7 +101,7 @@ function createChatBubble() {
     <!-- Chat Window -->
     <div id="chat-window" class="chat-window" style="display: none;" role="dialog" aria-labelledby="chat-header" aria-modal="true">
       <div class="chat-header" id="chat-header">
-        <h3>UAlbany Info Bot</h3>
+        <h3>UAlbany AI Chat Bot</h3>
         <button 
           id="close-chat-btn" 
           class="close-chat-btn" 

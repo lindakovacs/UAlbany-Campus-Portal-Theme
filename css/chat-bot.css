@@ -65,8 +65,8 @@
 /* Chat Window */
 .chat-window {
   position: absolute;
-  bottom: 80px;
-  right: 0;
+  bottom: 5rem;
+  right: 1.5rem;
   width: 400px;
   height: 600px;
   background: white;
@@ -95,7 +95,7 @@
 .chat-header {
   background: #9032ed;
   color: white;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -107,6 +107,11 @@
   margin: 0;
   font-size: 1.1rem;
   font-weight: 600;
+  color: white;
+  flex: 1 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .close-chat-btn {
@@ -144,6 +149,7 @@
   flex-direction: column;
   gap: 0.75rem;
   background: #fafafa;
+  max-height: calc(100% - 120px);
 }
 
 .chat-messages::-webkit-scrollbar {
