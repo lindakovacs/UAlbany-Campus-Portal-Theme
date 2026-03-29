@@ -1,12 +1,36 @@
 /**
- * Profile Edit Toggle Module
- * Allows users to edit their profile information inline
- * Uses: Variables, Objects, Events, Functions, Loops, localStorage
+ * Profile Edit Module
+ * Provides profile editing, experience/education CRUD, and social media management
+ * Functionality: Form state management, validation, localStorage persistence, event handling
+ * Uses: Variables, Objects, Events, Functions, Loops, localStorage, DOM manipulation
  */
 
-// Storage key for profile data
+// Storage keys for profile data
 const PROFILE_STORAGE_KEY = 'profileData';
+const EXPERIENCE_STORAGE_KEY = 'experienceList';
+const EDUCATION_STORAGE_KEY = 'educationList';
 const CURRENT_USER_ID = 'currentUser';
+
+// Profile form state constant
+const profileFormState = {
+  name: '',
+  email: '',
+  phone: '',
+  bio: '',
+  status: '',
+  company: '',
+  website: '',
+  location: '',
+  skills: '',
+  githubusername: '',
+  social: {
+    twitter: '',
+    facebook: '',
+    linkedin: '',
+    youtube: '',
+    instagram: '',
+  },
+};
 
 /**
  * Initialize profile data from localStorage
@@ -22,6 +46,18 @@ function initializeProfileData() {
         location: '',
         bio: '',
         skills: [],
+        status: '',
+        company: '',
+        website: '',
+        email: '',
+        phone: '',
+        social: {
+          twitter: '',
+          facebook: '',
+          linkedin: '',
+          youtube: '',
+          instagram: '',
+        },
       };
 }
 
@@ -441,4 +477,319 @@ document.addEventListener('DOMContentLoaded', function () {
 
     console.log('Profile edit module initialized');
   }
+});
+
+/**
+ * EXPERIENCE MANAGEMENT FUNCTIONS
+ */
+
+/**
+ * Get experience list from localStorage
+ * @returns {array} - Array of experience objects
+ */
+function getExperienceList() {
+  const stored = localStorage.getItem(EXPERIENCE_STORAGE_KEY);
+  return stored ? JSON.parse(stored) : [];
+}
+
+/**
+ * Save experience list to localStorage
+ * @param {array} experiences - Array of experience objects
+ */
+function saveExperienceList(experiences) {
+  localStorage.setItem(EXPERIENCE_STORAGE_KEY, JSON.stringify(experiences));
+  console.log('Experiences saved:', experiences);
+}
+
+/**
+ * Add experience with validation
+ * @param {object} experienceData - Experience form data
+ */
+function addExperience(experienceData) {
+  if (
+    !experienceData.title ||
+    !experienceData.company ||
+    !experienceData.from
+  ) {
+    alert('Title, Company, and From Date are required');
+    return false;
+  }
+
+  const experiences = getExperienceList();
+  const newExp = {
+    id: Date.now().toString(),
+    ...experienceData,
+    createdAt: new Date().toISOString(),
+  };
+
+  experiences.unshift(newExp); // Add to beginning
+  saveExperienceList(experiences);
+  renderExperienceList();
+  announceA11yChange('Experience added successfully');
+  return true;
+}
+
+/**
+ * Delete experience with confirmation
+ * @param {string} expId - Experience ID to delete
+ */
+function deleteExperience(expId) {
+  if (!confirm('Are you sure you want to delete this experience?')) return;
+
+  let experiences = getExperienceList();
+  experiences = experiences.filter((exp) => exp.id !== expId);
+  saveExperienceList(experiences);
+  renderExperienceList();
+  announceA11yChange('Experience deleted');
+}
+
+/**
+ * Render experience list in DOM
+ */
+/**
+ * Format date to readable string
+ * @param {string} dateStr - ISO date string
+ * @returns {string} - Formatted date
+ */
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+}
+
+/**
+ * Render experience list in DOM
+ */
+function renderExperienceList() {
+  const experiences = getExperienceList();
+  const container = document.getElementById('profile-exp');
+
+  if (!container) return;
+
+  // Remove only existing experience items (class="experience-list div")
+  const existingItems = container.querySelectorAll('.exp-item');
+  existingItems.forEach((item) => item.remove());
+
+  // Add new experience items
+  experiences.forEach((exp) => {
+    const expDiv = document.createElement('div');
+    expDiv.className = 'exp-item';
+    expDiv.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: start; gap: 1rem;">
+        <div style="flex: 1;">
+          <h3 class="text-dark">${exp.company}</h3>
+          <p><strong>Position:</strong> ${exp.title}</p>
+          ${exp.location ? `<p><strong>Location:</strong> ${exp.location}</p>` : ''}
+          <p>
+            <strong>From:</strong> ${formatDate(exp.from)}
+            ${exp.to ? `<strong>To:</strong> ${formatDate(exp.to)}` : '<strong>To:</strong> Now'}
+          </p>
+          ${exp.description ? `<p><strong>Description:</strong> ${exp.description}</p>` : ''}
+        </div>
+        <button class="btn btn-danger btn-sm" onclick="deleteExperience('${exp.id}')" style="white-space: nowrap; margin-top: 0.5rem;">
+          <i class="fas fa-trash"></i> Delete
+        </button>
+      </div>
+      <hr style="margin: 1rem 0;">
+    `;
+    container.appendChild(expDiv);
+  });
+}
+
+/**
+ * Render education list in DOM
+ */
+function renderEducationList() {
+  const educations = getEducationList();
+  const container = document.getElementById('profile-edu');
+
+  if (!container) return;
+
+  // Remove only existing education items
+  const existingItems = container.querySelectorAll('.edu-item');
+  existingItems.forEach((item) => item.remove());
+
+  // Add new education items
+  educations.forEach((edu) => {
+    const eduDiv = document.createElement('div');
+    eduDiv.className = 'edu-item';
+    eduDiv.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: start; gap: 1rem;">
+        <div style="flex: 1;">
+          <h3 class="text-dark">${edu.school}</h3>
+          <p><strong>Degree:</strong> ${edu.degree}</p>
+          ${edu.fieldofstudy ? `<p><strong>Field of Study:</strong> ${edu.fieldofstudy}</p>` : ''}
+          <p>
+            <strong>From:</strong> ${formatDate(edu.from)}
+            ${edu.to ? `<strong>To:</strong> ${formatDate(edu.to)}` : '<strong>To:</strong> Now'}
+          </p>
+          ${edu.description ? `<p><strong>Description:</strong> ${edu.description}</p>` : ''}
+        </div>
+        <button class="btn btn-danger btn-sm" onclick="deleteEducation('${edu.id}')" style="white-space: nowrap; margin-top: 0.5rem;">
+          <i class="fas fa-trash"></i> Delete
+        </button>
+      </div>
+      <hr style="margin: 1rem 0;">
+    `;
+    container.appendChild(eduDiv);
+  });
+}
+
+/**
+ * EDUCATION MANAGEMENT FUNCTIONS
+ */
+
+/**
+ * Get education list from localStorage
+ * @returns {array} - Array of education objects
+ */
+function getEducationList() {
+  const stored = localStorage.getItem(EDUCATION_STORAGE_KEY);
+  return stored ? JSON.parse(stored) : [];
+}
+
+/**
+ * Save education list to localStorage
+ * @param {array} educations - Array of education objects
+ */
+function saveEducationList(educations) {
+  localStorage.setItem(EDUCATION_STORAGE_KEY, JSON.stringify(educations));
+  console.log('Education saved:', educations);
+}
+
+/**
+ * Add education with validation
+ * @param {object} educationData - Education form data
+ */
+function addEducation(educationData) {
+  if (
+    !educationData.school ||
+    !educationData.degree ||
+    !educationData.fieldofstudy ||
+    !educationData.from
+  ) {
+    alert('School, Degree, Field of Study, and From Date are required');
+    return false;
+  }
+
+  const educations = getEducationList();
+  const newEdu = {
+    id: Date.now().toString(),
+    ...educationData,
+    createdAt: new Date().toISOString(),
+  };
+
+  educations.unshift(newEdu); // Add to beginning
+  saveEducationList(educations);
+  renderEducationList();
+  announceA11yChange('Education added successfully');
+  return true;
+}
+
+/**
+ * Delete education with confirmation
+ * @param {string} eduId - Education ID to delete
+ */
+function deleteEducation(eduId) {
+  if (!confirm('Are you sure you want to delete this education?')) return;
+
+  let educations = getEducationList();
+  educations = educations.filter((edu) => edu.id !== eduId);
+  saveEducationList(educations);
+  renderEducationList();
+  announceA11yChange('Education deleted');
+}
+
+/**
+ * Toggle Add Experience Form visibility
+ */
+function toggleAddExperienceForm() {
+  const form = document.getElementById('add-experience-form');
+  if (form) {
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    // Clear form if showing
+    if (form.style.display === 'block') {
+      form.reset();
+    }
+  }
+}
+
+/**
+ * Submit Add Experience Form
+ */
+function submitAddExperienceForm() {
+  const title = document.getElementById('exp-title')?.value.trim();
+  const company = document.getElementById('exp-company')?.value.trim();
+  const location = document.getElementById('exp-location')?.value.trim();
+  const from = document.getElementById('exp-from')?.value;
+  const to = document.getElementById('exp-to')?.value;
+  const current = document.getElementById('exp-current')?.checked;
+  const description = document.getElementById('exp-description')?.value.trim();
+
+  const experienceData = {
+    title,
+    company,
+    location,
+    from,
+    to: current ? null : to,
+    current,
+    description,
+  };
+
+  if (addExperience(experienceData)) {
+    toggleAddExperienceForm();
+    document.getElementById('add-experience-form').reset();
+  }
+}
+
+/**
+ * Toggle Add Education Form visibility
+ */
+function toggleAddEducationForm() {
+  const form = document.getElementById('add-education-form');
+  if (form) {
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    // Clear form if showing
+    if (form.style.display === 'block') {
+      form.reset();
+    }
+  }
+}
+
+/**
+ * Submit Add Education Form
+ */
+function submitAddEducationForm() {
+  const school = document.getElementById('edu-school')?.value.trim();
+  const degree = document.getElementById('edu-degree')?.value.trim();
+  const fieldofstudy = document
+    .getElementById('edu-fieldofstudy')
+    ?.value.trim();
+  const from = document.getElementById('edu-from')?.value;
+  const to = document.getElementById('edu-to')?.value;
+  const current = document.getElementById('edu-current')?.checked;
+  const description = document.getElementById('edu-description')?.value.trim();
+
+  const educationData = {
+    school,
+    degree,
+    fieldofstudy,
+    from,
+    to: current ? null : to,
+    current,
+    description,
+  };
+
+  if (addEducation(educationData)) {
+    toggleAddEducationForm();
+    document.getElementById('add-education-form').reset();
+  }
+}
+
+/**
+ * Initialize experience and education rendering on page load
+ */
+document.addEventListener('DOMContentLoaded', function () {
+  renderExperienceList();
+  renderEducationList();
 });

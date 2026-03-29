@@ -129,45 +129,215 @@
 
           <!-- Experience -->
           <div class="profile-exp bg-white p-2 card">
-            <h2 class="text-primary">Experience</h2>
-            <div>
-              <h3 class="text-dark">Accenture</h3>
-              <p>Sept 2020 - Current</p>
-              <p><strong>Position: </strong>Sr Software Engineer</p>
-              <p>
-                <strong>Description: </strong>Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Dignissimos placeat, dolorum ullam
-                ipsam, sapiente suscipit dicta eius velit amet aspernatur
-                asperiores modi quidem expedita fugit.
-              </p>
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 1rem;
+              "
+            >
+              <h2 class="text-primary" style="margin: 0">Experience</h2>
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="toggleAddExperienceForm()"
+                aria-label="Add new experience"
+              >
+                <i class="fas fa-plus"></i> Add Experience
+              </button>
             </div>
-            <div>
-              <h3 class="text-dark">Sun Microsystems</h3>
-              <p>Nov 2004 - Nov 2011</p>
-              <p><strong>Position: </strong>Systems Admin</p>
-              <p>
-                <strong>Description: </strong>Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Dignissimos placeat, dolorum ullam
-                ipsam, sapiente suscipit dicta eius velit amet aspernatur
-                asperiores modi quidem expedita fugit.
-              </p>
+
+            <!-- Add Experience Form (Hidden by default) -->
+            <form
+              id="add-experience-form"
+              class="form"
+              style="display: none; margin-bottom: 2rem"
+            >
+              <h4>Add An Experience</h4>
+              <small>* = required field</small>
+
+              <div class="form-group">
+                <input
+                  type="text"
+                  placeholder="* Job Title"
+                  id="exp-title"
+                  name="title"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <input
+                  type="text"
+                  placeholder="* Company"
+                  id="exp-company"
+                  name="company"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <input
+                  type="text"
+                  placeholder="Location"
+                  id="exp-location"
+                  name="location"
+                />
+              </div>
+
+              <div class="form-group">
+                <h4>From Date</h4>
+                <input type="date" id="exp-from" name="from" required />
+              </div>
+
+              <div class="form-group">
+                <p>
+                  <input type="checkbox" id="exp-current" name="current" />
+                  <label for="exp-current">Current Job</label>
+                </p>
+              </div>
+
+              <div class="form-group">
+                <h4>To Date</h4>
+                <input type="date" id="exp-to" name="to" />
+              </div>
+
+              <div class="form-group">
+                <textarea
+                  id="exp-description"
+                  name="description"
+                  cols="30"
+                  rows="5"
+                  placeholder="Job Description"
+                ></textarea>
+              </div>
+
+              <button
+                type="button"
+                class="btn btn-primary my-1"
+                onclick="submitAddExperienceForm()"
+              >
+                Save Experience
+              </button>
+              <button
+                type="button"
+                class="btn btn-light my-1"
+                onclick="toggleAddExperienceForm()"
+              >
+                Cancel
+              </button>
+            </form>
+
+            <!-- Experience List Container -->
+            <div id="profile-exp" class="experience-list">
+              <!-- Experiences render here via JavaScript -->
             </div>
           </div>
 
           <!-- Education -->
           <div class="profile-edu bg-white p-2 card">
-            <h2 class="text-primary">Education</h2>
-            <div>
-              <h3>University Of Washington</h3>
-              <p>Sep 1993 - June 1999</p>
-              <p><strong>Degree: </strong>Masters</p>
-              <p><strong>Field Of Study: </strong>Computer Science</p>
-              <p>
-                <strong>Description: </strong>Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Dignissimos placeat, dolorum ullam
-                ipsam, sapiente suscipit dicta eius velit amet aspernatur
-                asperiores modi quidem expedita fugit.
-              </p>
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 1rem;
+              "
+            >
+              <h2 class="text-primary" style="margin: 0">Education</h2>
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="toggleAddEducationForm()"
+                aria-label="Add new education"
+              >
+                <i class="fas fa-plus"></i> Add Education
+              </button>
+            </div>
+
+            <!-- Add Education Form (Hidden by default) -->
+            <form
+              id="add-education-form"
+              class="form"
+              style="display: none; margin-bottom: 2rem"
+            >
+              <h4>Add Your Education</h4>
+              <small>* = required field</small>
+
+              <div class="form-group">
+                <input
+                  type="text"
+                  placeholder="* School or Bootcamp"
+                  id="edu-school"
+                  name="school"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <input
+                  type="text"
+                  placeholder="* Degree or Certificate"
+                  id="edu-degree"
+                  name="degree"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <input
+                  type="text"
+                  placeholder="Field Of Study"
+                  id="edu-fieldofstudy"
+                  name="fieldofstudy"
+                />
+              </div>
+
+              <div class="form-group">
+                <h4>From Date</h4>
+                <input type="date" id="edu-from" name="from" required />
+              </div>
+
+              <div class="form-group">
+                <p>
+                  <input type="checkbox" id="edu-current" name="current" />
+                  <label for="edu-current">Current School or Bootcamp</label>
+                </p>
+              </div>
+
+              <div class="form-group">
+                <h4>To Date</h4>
+                <input type="date" id="edu-to" name="to" />
+              </div>
+
+              <div class="form-group">
+                <textarea
+                  id="edu-description"
+                  name="description"
+                  cols="30"
+                  rows="5"
+                  placeholder="Program Description"
+                ></textarea>
+              </div>
+
+              <button
+                type="button"
+                class="btn btn-primary my-1"
+                onclick="submitAddEducationForm()"
+              >
+                Save Education
+              </button>
+              <button
+                type="button"
+                class="btn btn-light my-1"
+                onclick="toggleAddEducationForm()"
+              >
+                Cancel
+              </button>
+            </form>
+
+            <!-- Education List Container -->
+            <div id="profile-edu" class="education-list">
+              <!-- Educations render here via JavaScript -->
             </div>
           </div>
 
@@ -234,14 +404,120 @@
     <!-- Profile Edit Scripts -->
     <script src="js/profile-edit.js"></script>
 
-    <!-- Experience/Education CRUD Scripts -->
-    <script src="js/experience-education.js"></script>
-
     <!-- Accessibility Features Scripts -->
     <script src="js/accessibility.js"></script>
     <script src="js/accessibility-ui.js"></script>
 
     <!-- Chat Bot Script -->
     <script src="js/chat-bot.js"></script>
+
+    <!-- Debugging localStorage -->
+    <script>
+      console.log('=== localStorage Diagnostic ===');
+
+      // Check if localStorage is available
+      try {
+        localStorage.setItem('test', 'test');
+        localStorage.removeItem('test');
+        console.log('✓ localStorage is available');
+      } catch (e) {
+        console.error('✗ localStorage is NOT available:', e);
+      }
+
+      // List all keys
+      console.log('Current localStorage keys:', Object.keys(localStorage));
+
+      // Check for our specific keys
+      const expKey = 'experienceList';
+      const eduKey = 'educationList';
+      console.log(`  "${expKey}":`, localStorage.getItem(expKey));
+      console.log(`  "${eduKey}":`, localStorage.getItem(eduKey));
+
+      // Test form elements exist
+      console.log('Form elements:');
+      console.log(
+        '  add-experience-form:',
+        document.getElementById('add-experience-form')
+          ? '✓ Found'
+          : '✗ NOT found',
+      );
+      console.log(
+        '  exp-title input:',
+        document.getElementById('exp-title') ? '✓ Found' : '✗ NOT found',
+      );
+      console.log(
+        '  exp-company input:',
+        document.getElementById('exp-company') ? '✓ Found' : '✗ NOT found',
+      );
+      console.log(
+        '  exp-from input:',
+        document.getElementById('exp-from') ? '✓ Found' : '✗ NOT found',
+      );
+
+      // Test functions exist
+      console.log('Functions:');
+      console.log(
+        '  submitAddExperienceForm:',
+        typeof submitAddExperienceForm !== 'undefined'
+          ? '✓ Available'
+          : '✗ NOT defined',
+      );
+      console.log(
+        '  toggleAddExperienceForm:',
+        typeof toggleAddExperienceForm !== 'undefined'
+          ? '✓ Available'
+          : '✗ NOT defined',
+      );
+      console.log(
+        '  addExperience:',
+        typeof addExperience !== 'undefined' ? '✓ Available' : '✗ NOT defined',
+      );
+      console.log(
+        '  getExperienceList:',
+        typeof getExperienceList !== 'undefined'
+          ? '✓ Available'
+          : '✗ NOT defined',
+      );
+
+      // Create manual test button
+      const testBtn = document.createElement('button');
+      testBtn.className = 'btn btn-warning btn-sm';
+      testBtn.style.position = 'fixed';
+      testBtn.style.bottom = '20px';
+      testBtn.style.left = '20px';
+      testBtn.style.zIndex = '9999';
+      testBtn.textContent = '📋 Test localStorage';
+      testBtn.onclick = function () {
+        const testData = {
+          id: Date.now().toString(),
+          title: 'Test Job',
+          company: 'Test Company',
+          from: '2024-01-01',
+          to: '',
+          current: true,
+          description: 'This is a test',
+        };
+
+        console.log('Testing localStorage with:', testData);
+
+        try {
+          let list = JSON.parse(localStorage.getItem('experienceList') || '[]');
+          list.push(testData);
+          localStorage.setItem('experienceList', JSON.stringify(list));
+          console.log('✓ Successfully saved test data');
+          console.log('Current list:', list);
+
+          if (typeof renderExperienceList === 'function') {
+            renderExperienceList();
+            console.log('✓ Called renderExperienceList()');
+          } else {
+            console.error('✗ renderExperienceList function not found');
+          }
+        } catch (e) {
+          console.error('✗ Error during test:', e);
+        }
+      };
+      document.body.appendChild(testBtn);
+    </script>
   </body>
 </html>

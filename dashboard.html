@@ -38,120 +38,80 @@
         .catch((error) => console.error('Error loading navbar:', error));
     </script>
     <main>
-    <section class="container">
-      <h1 class="large text-primary">Dashboard</h1>
-      <p class="lead"><i class="fas fa-user"></i> Welcome Linda Kovacs</p>
-      <div class="photo-card bg-white p-2 my-2">
-        <div class="photo-card-header">
-          <h2 class="text-primary">Profile Photo</h2>
-          <p class="text-dark">Upload or change your profile picture.</p>
-        </div>
-        <div class="photo-card-body">
-          <img
-            src="https://linda-kovacs.com/wp-content/uploads/2017/03/Linda-Kovacs.jpg?s=200"
-            alt="Profile preview"
-            class="profile-photo"
-          />
-          <div class="photo-actions">
-            <label class="btn btn-light" for="dashboard-photo">
-              <i class="fas fa-camera"></i> Choose Photo
-            </label>
-            <input
-              id="dashboard-photo"
-              type="file"
-              accept="image/*"
-              class="photo-input"
+      <section class="container">
+        <h1 class="large text-primary">Dashboard</h1>
+        <p class="lead"><i class="fas fa-user"></i> Welcome Linda Kovacs</p>
+        <div class="photo-card bg-white p-2 my-2">
+          <div class="photo-card-header">
+            <h2 class="text-primary">Profile Photo</h2>
+            <p class="text-dark">Upload or change your profile picture.</p>
+          </div>
+          <div class="photo-card-body">
+            <img
+              src="https://linda-kovacs.com/wp-content/uploads/2017/03/Linda-Kovacs.jpg?s=200"
+              alt="Profile preview"
+              class="profile-photo"
             />
-            <small class="form-text">JPG or PNG, max 5MB.</small>
+            <div class="photo-actions">
+              <label class="btn btn-light" for="dashboard-photo">
+                <i class="fas fa-camera"></i> Choose Photo
+              </label>
+              <input
+                id="dashboard-photo"
+                type="file"
+                accept="image/*"
+                class="photo-input"
+              />
+              <small class="form-text">JPG or PNG, max 5MB.</small>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="dash-buttons">
-        <a href="create-profile.html" class="btn btn-light"
-          ><i class="fas fa-user-circle text-primary"></i> Edit Profile</a
-        >
-        <a href="add-experience.html" class="btn btn-light"
-          ><i class="fab fa-black-tie text-primary"></i> Add Experience</a
-        >
-        <a href="add-education.html" class="btn btn-light"
-          ><i class="fas fa-graduation-cap text-primary"></i> Add Education</a
-        >
-      </div>
+        <div class="dash-buttons">
+          <a href="create-profile.html" class="btn btn-light"
+            ><i class="fas fa-user-circle text-primary"></i> Edit Profile</a
+          >
+          <a href="add-experience.html" class="btn btn-light"
+            ><i class="fab fa-black-tie text-primary"></i> Add Experience</a
+          >
+          <a href="add-education.html" class="btn btn-light"
+            ><i class="fas fa-graduation-cap text-primary"></i> Add Education</a
+          >
+        </div>
 
-      <h2 class="my-2">Experience Credentials</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Company</th>
-            <th class="hide-sm">Title</th>
-            <th class="hide-sm">Years</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+        <h2 class="my-2">Experience Credentials</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th class="hide-sm">Title</th>
+              <th class="hide-sm">Years</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="dashboard-experience-tbody"></tbody>
+        </table>
 
-      <h2 class="my-2">Education Credentials</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>School</th>
-            <th class="hide-sm">Degree</th>
-            <th class="hide-sm">Years</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Tech Guy Web Solutions</td>
-            <td class="hide-sm">Senior Developer</td>
-            <td class="hide-sm">
-              02-03-2009 - 01-02-2014
-            </td>
-            <td>
-              <button class="btn btn-danger">
-                Delete
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>Traversy Media</td>
-            <td class="hide-sm">Instructor & Developer</td>
-            <td class="hide-sm">
-              02-03-2015 - Now
-            </td>
-            <td>
-              <button class="btn btn-danger">
-                Delete
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <h2 class="my-2">Education Credentials</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>School</th>
+              <th class="hide-sm">Degree</th>
+              <th class="hide-sm">Years</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="dashboard-education-tbody"></tbody>
+        </table>
 
-      <h2 class="my-2">Education Credentials</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>School</th>
-            <th class="hide-sm">Degree</th>
-            <th class="hide-sm">Years</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+        <div class="my-2">
+          <button class="btn btn-danger">
+            <i class="fas fa-user-minus"></i>
 
-      <div class="my-2">
-        <button class="btn btn-danger">
-          <i class="fas fa-user-minus"></i>
-
-          Delete My Account
-        </button>
-      </div>
-    </section>
+            Delete My Account
+          </button>
+        </div>
+      </section>
     </main>
     <!-- Footer loaded from modules -->
     <footer id="footer-container"></footer>
@@ -166,14 +126,147 @@
     <!-- Profile Edit Scripts -->
     <script src="js/profile-edit.js"></script>
 
-    <!-- Experience/Education CRUD Scripts -->
-    <script src="js/experience-education.js"></script>
-
     <!-- Accessibility Features Scripts -->
     <script src="js/accessibility.js"></script>
     <script src="js/accessibility-ui.js"></script>
 
     <!-- Chat Bot Script -->
     <script src="js/chat-bot.js"></script>
+
+    <!-- Dashboard Data Population Script -->
+    <script>
+      /**
+       * Format date to readable string
+       * @param {string} dateStr - ISO date string or date input value
+       * @returns {string} - Formatted date
+       */
+      function formatDashboardDate(dateStr) {
+        if (!dateStr) return '';
+        const date = new Date(dateStr);
+        return date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+        });
+      }
+
+      /**
+       * Populate experience table from localStorage
+       */
+      function populateDashboardExperience() {
+        const tbody = document.getElementById('dashboard-experience-tbody');
+        if (!tbody) return;
+
+        const experienceList = JSON.parse(
+          localStorage.getItem('experienceList') || '[]',
+        );
+
+        tbody.innerHTML = '';
+
+        if (experienceList.length === 0) {
+          tbody.innerHTML =
+            '<tr><td colspan="4" class="text-center text-muted">No experience yet</td></tr>';
+          return;
+        }
+
+        experienceList.forEach((exp) => {
+          const fromDate = formatDashboardDate(exp.from);
+          const toDate = exp.to ? formatDashboardDate(exp.to) : 'Now';
+          const years = `${fromDate} - ${toDate}`;
+
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${exp.company}</td>
+            <td class="hide-sm">${exp.title}</td>
+            <td class="hide-sm">${years}</td>
+            <td>
+              <button class="btn btn-danger btn-sm" onclick="deleteDashboardExperience('${exp.id}')">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+
+      /**
+       * Populate education table from localStorage
+       */
+      function populateDashboardEducation() {
+        const tbody = document.getElementById('dashboard-education-tbody');
+        if (!tbody) return;
+
+        const educationList = JSON.parse(
+          localStorage.getItem('educationList') || '[]',
+        );
+
+        tbody.innerHTML = '';
+
+        if (educationList.length === 0) {
+          tbody.innerHTML =
+            '<tr><td colspan="4" class="text-center text-muted">No education yet</td></tr>';
+          return;
+        }
+
+        educationList.forEach((edu) => {
+          const fromDate = formatDashboardDate(edu.from);
+          const toDate = edu.to ? formatDashboardDate(edu.to) : 'Now';
+          const years = `${fromDate} - ${toDate}`;
+
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${edu.school}</td>
+            <td class="hide-sm">${edu.degree}</td>
+            <td class="hide-sm">${years}</td>
+            <td>
+              <button class="btn btn-danger btn-sm" onclick="deleteDashboardEducation('${edu.id}')">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+
+      /**
+       * Delete experience from dashboard
+       * @param {string} expId - Experience ID
+       */
+      function deleteDashboardExperience(expId) {
+        if (!confirm('Are you sure you want to delete this experience?'))
+          return;
+
+        let experiences = JSON.parse(
+          localStorage.getItem('experienceList') || '[]',
+        );
+        experiences = experiences.filter((exp) => exp.id !== expId);
+        localStorage.setItem('experienceList', JSON.stringify(experiences));
+
+        populateDashboardExperience();
+      }
+
+      /**
+       * Delete education from dashboard
+       * @param {string} eduId - Education ID
+       */
+      function deleteDashboardEducation(eduId) {
+        if (!confirm('Are you sure you want to delete this education?')) return;
+
+        let educations = JSON.parse(
+          localStorage.getItem('educationList') || '[]',
+        );
+        educations = educations.filter((edu) => edu.id !== eduId);
+        localStorage.setItem('educationList', JSON.stringify(educations));
+
+        populateDashboardEducation();
+      }
+
+      // Populate tables when page loads
+      document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(function () {
+          populateDashboardExperience();
+          populateDashboardEducation();
+        }, 100);
+      });
+    </script>
   </body>
 </html>
