@@ -18,6 +18,7 @@
 
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/dark-mode.css" />
+    <link rel="stylesheet" href="css/experience-education.css" />
     <title>Welcome To UAlbany Campus</title>
   </head>
   <body>
@@ -117,5 +118,30 @@
     <!-- Accessibility Features Scripts -->
     <script src="js/accessibility.js"></script>
     <script src="js/accessibility-ui.js"></script>
+
+    <!-- Form Toggle Script -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const currentCheckbox = document.querySelector('input[name="current"]');
+        const toDateInput = document.querySelector('input[name="to"]');
+        
+        if (currentCheckbox && toDateInput) {
+          // Set initial state
+          if (currentCheckbox.checked) {
+            toDateInput.disabled = true;
+          }
+          
+          // Handle checkbox change
+          currentCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+              toDateInput.disabled = true;
+              toDateInput.value = '';
+            } else {
+              toDateInput.disabled = false;
+            }
+          });
+        }
+      });
+    </script>
   </body>
 </html>
