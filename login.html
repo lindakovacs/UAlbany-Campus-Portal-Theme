@@ -18,6 +18,7 @@
 
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/dark-mode.css" />
+    <link rel="stylesheet" href="css/chat-bot.css" />
     <title>Welcome To UAlbany Campus - Login</title>
   </head>
   <body>
@@ -68,22 +69,14 @@
         })
         .catch((error) => console.error('Error loading footer:', error));
     </script>
-    <!-- Chat widget loaded from modules -->
-    <div id="chat-container"></div>
-    <script>
-      fetch('modules/chat.html')
-        .then((response) => response.text())
-        .then((html) => {
-          document.getElementById('chat-container').innerHTML = html;
-        })
-        .catch((error) => console.error('Error loading chat:', error));
-    </script>
-
     <!-- Form Validation Script -->
     <script src="js/form-validation.js"></script>
 
     <!-- Accessibility Features Scripts -->
     <script src="js/accessibility.js"></script>
     <script src="js/accessibility-ui.js"></script>
+
+    <!-- Chat Bot Script -->
+    <script src="js/chat-bot.js"></script>
   </body>
 </html>

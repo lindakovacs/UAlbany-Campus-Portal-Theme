@@ -749,7 +749,7 @@ img {
 .chat-messages {
   padding: 0.6rem;
   background: #f9f9f9;
-  height: calc(100% - 120px);
+  height: calc(100% - 80px);
   overflow-y: auto;
 }
 
