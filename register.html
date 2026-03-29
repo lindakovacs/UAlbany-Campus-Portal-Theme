@@ -17,7 +17,7 @@
     />
 
     <link rel="stylesheet" href="css/style.css" />
-    <title>Welcome To UAlbany Campus</title>
+    <title>Welcome To UAlbany Campus - Register</title>
   </head>
   <body>
     <!-- top anchor for Back-to-Top -->
@@ -34,42 +34,42 @@
         .catch((error) => console.error('Error loading navbar:', error));
     </script>
     <main>
-    <section class="container">
-      <h1 class="large text-primary">Sign Up</h1>
-      <p class="lead"><i class="fas fa-user"></i> Create Your Account</p>
-      <form class="form" action="create-profile.html">
-        <div class="form-group">
-          <input type="text" placeholder="Name" name="name" required />
-        </div>
-        <div class="form-group">
-          <input type="email" placeholder="Email Address" name="email" />
-          <small class="form-text"
-            >This site uses Gravatar so if you want a profile image, use a
-            Gravatar email</small
-          >
-        </div>
-        <div class="form-group">
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            minlength="6"
-          />
-        </div>
-        <div class="form-group">
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            name="password2"
-            minlength="6"
-          />
-        </div>
-        <input type="submit" class="btn btn-primary" value="Register" />
-      </form>
-      <p class="my-1">
-        Already have an account? <a href="login.html">Sign In</a>
-      </p>
-    </section>
+      <section class="container">
+        <h1 class="large text-primary">Sign Up</h1>
+        <p class="lead"><i class="fas fa-user"></i> Create Your Account</p>
+        <form class="form" action="create-profile.html">
+          <div class="form-group">
+            <input type="text" placeholder="Name" name="name" required />
+          </div>
+          <div class="form-group">
+            <input type="email" placeholder="Email Address" name="email" />
+            <small class="form-text"
+              >This site uses Gravatar so if you want a profile image, use a
+              Gravatar email</small
+            >
+          </div>
+          <div class="form-group">
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              minlength="6"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              name="password2"
+              minlength="6"
+            />
+          </div>
+          <input type="submit" class="btn btn-primary" value="Register" />
+        </form>
+        <p class="my-1">
+          Already have an account? <a href="login.html">Sign In</a>
+        </p>
+      </section>
     </main>
     <!-- Footer loaded from modules -->
     <footer id="footer-container"></footer>
@@ -91,5 +91,8 @@
         })
         .catch((error) => console.error('Error loading chat:', error));
     </script>
+
+    <!-- Form Validation Script -->
+    <script src="js/form-validation.js"></script>
   </body>
 </html>

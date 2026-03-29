@@ -17,7 +17,7 @@
     />
 
     <link rel="stylesheet" href="css/style.css" />
-    <title>Welcome To UAlbany Campus</title>
+    <title>Welcome To UAlbany Campus - Login</title>
   </head>
   <body>
     <!-- top anchor for Back-to-Top -->
@@ -34,28 +34,28 @@
         .catch((error) => console.error('Error loading navbar:', error));
     </script>
     <main>
-    <section class="container">
-      <div class="alert alert-danger">Invalid credentials</div>
-      <h1 class="large text-primary">Sign In</h1>
-      <p class="lead"><i class="fas fa-user"></i> Sign into Your Account</p>
-      <form class="form" action="dashboard.html">
-        <div class="form-group">
-          <input
-            type="email"
-            placeholder="Email Address"
-            name="email"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <input type="password" placeholder="Password" name="password" />
-        </div>
-        <input type="submit" class="btn btn-primary" value="Login" />
-      </form>
-      <p class="my-1">
-        Don't have an account? <a href="register.html">Sign Up</a>
-      </p>
-    </section>
+      <section class="container">
+        <div class="alert alert-danger">Invalid credentials</div>
+        <h1 class="large text-primary">Sign In</h1>
+        <p class="lead"><i class="fas fa-user"></i> Sign into Your Account</p>
+        <form class="form" action="dashboard.html">
+          <div class="form-group">
+            <input
+              type="email"
+              placeholder="Email Address"
+              name="email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <input type="password" placeholder="Password" name="password" />
+          </div>
+          <input type="submit" class="btn btn-primary" value="Login" />
+        </form>
+        <p class="my-1">
+          Don't have an account? <a href="register.html">Sign Up</a>
+        </p>
+      </section>
     </main>
     <!-- Footer loaded from modules -->
     <footer id="footer-container"></footer>
@@ -77,5 +77,8 @@
         })
         .catch((error) => console.error('Error loading chat:', error));
     </script>
+
+    <!-- Form Validation Script -->
+    <script src="js/form-validation.js"></script>
   </body>
 </html>
