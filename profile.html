@@ -478,46 +478,6 @@
           ? '✓ Available'
           : '✗ NOT defined',
       );
-
-      // Create manual test button
-      const testBtn = document.createElement('button');
-      testBtn.className = 'btn btn-warning btn-sm';
-      testBtn.style.position = 'fixed';
-      testBtn.style.bottom = '20px';
-      testBtn.style.left = '20px';
-      testBtn.style.zIndex = '9999';
-      testBtn.textContent = '📋 Test localStorage';
-      testBtn.onclick = function () {
-        const testData = {
-          id: Date.now().toString(),
-          title: 'Test Job',
-          company: 'Test Company',
-          from: '2024-01-01',
-          to: '',
-          current: true,
-          description: 'This is a test',
-        };
-
-        console.log('Testing localStorage with:', testData);
-
-        try {
-          let list = JSON.parse(localStorage.getItem('experienceList') || '[]');
-          list.push(testData);
-          localStorage.setItem('experienceList', JSON.stringify(list));
-          console.log('✓ Successfully saved test data');
-          console.log('Current list:', list);
-
-          if (typeof renderExperienceList === 'function') {
-            renderExperienceList();
-            console.log('✓ Called renderExperienceList()');
-          } else {
-            console.error('✗ renderExperienceList function not found');
-          }
-        } catch (e) {
-          console.error('✗ Error during test:', e);
-        }
-      };
-      document.body.appendChild(testBtn);
     </script>
   </body>
 </html>

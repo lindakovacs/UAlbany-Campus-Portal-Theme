@@ -10,6 +10,7 @@ const PROFILE_STORAGE_KEY = 'profileData';
 const EXPERIENCE_STORAGE_KEY = 'experienceList';
 const EDUCATION_STORAGE_KEY = 'educationList';
 const CURRENT_USER_ID = 'currentUser';
+const PROFILE_PHOTO_STORAGE_KEY = 'profilePhoto';
 
 // Profile form state constant
 const profileFormState = {
@@ -787,9 +788,95 @@ function submitAddEducationForm() {
 }
 
 /**
+ * Load and display profile photo from localStorage
+ * Syncs across profile.html and dashboard.html
+ */
+function loadProfilePhoto() {
+  const storedPhoto = localStorage.getItem(PROFILE_PHOTO_STORAGE_KEY);
+  
+  if (storedPhoto) {
+    // Update profile.html image
+    const profileImg = document.querySelector('.profile-top .round-img');
+    if (profileImg) {
+      profileImg.src = storedPhoto;
+    }
+    
+    // Update dashboard.html image
+    const dashboardImg = document.querySelector('.photo-card .profile-photo');
+    if (dashboardImg) {
+      dashboardImg.src = storedPhoto;
+    }
+  }
+}
+
+/**
+ * Handle photo upload from profile.html or dashboard.html
+ * Converts image to base64 and stores in localStorage
+ * @param {Event} event - File input change event
+ */
+function handlePhotoUpload(event) {
+  const file = event.target.files[0];
+  
+  if (!file) return;
+  
+  // Validate file is an image
+  if (!file.type.startsWith('image/')) {
+    alert('Please select a valid image file');
+    return;
+  }
+  
+  // Validate file size (5MB max)
+  const maxSize = 5 * 1024 * 1024; // 5MB
+  if (file.size > maxSize) {
+    alert('File size must be less than 5MB');
+    return;
+  }
+  
+  // Read file and convert to base64
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const photoData = e.target.result; // This is the base64 encoded image
+    
+    // Store in localStorage
+    localStorage.setItem(PROFILE_PHOTO_STORAGE_KEY, photoData);
+    
+    // Update all profile images on the page
+    const profileImg = document.querySelector('.profile-top .round-img');
+    if (profileImg) {
+      profileImg.src = photoData;
+    }
+    
+    const dashboardImg = document.querySelector('.photo-card .profile-photo');
+    if (dashboardImg) {
+      dashboardImg.src = photoData;
+    }
+    
+    console.log('Profile photo updated and saved to localStorage');
+  };
+  
+  reader.onerror = function () {
+    alert('Error reading file. Please try again.');
+  };
+  
+  reader.readAsDataURL(file);
+}
+
+/**
  * Initialize experience and education rendering on page load
  */
 document.addEventListener('DOMContentLoaded', function () {
   renderExperienceList();
   renderEducationList();
+  loadProfilePhoto();
+  
+  // Add photo upload event listeners
+  const profilePhotoInput = document.getElementById('profile-photo');
+  if (profilePhotoInput) {
+    profilePhotoInput.addEventListener('change', handlePhotoUpload);
+  }
+  
+  const dashboardPhotoInput = document.getElementById('dashboard-photo');
+  if (dashboardPhotoInput) {
+    dashboardPhotoInput.addEventListener('change', handlePhotoUpload);
+  }
 });
