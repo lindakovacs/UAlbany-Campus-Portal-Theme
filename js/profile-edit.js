@@ -147,20 +147,24 @@ function toggleEditMode() {
  */
 function enterEditMode() {
   const profileTop = document.querySelector('.profile-top');
+  const profileAbout = document.querySelector('.profile-about');
   if (!profileTop) return;
 
   profileTop.classList.add('editing');
+  if (profileAbout) profileAbout.classList.add('editing');
 
   // Get current data
   const nameEl = profileTop.querySelector('h1');
   const titleEl = profileTop.querySelector('.lead');
   const locationEl = profileTop.querySelector('p:not(.lead)');
+  const bioEl = profileAbout?.querySelector('p');
 
   // Store original values
   const originalData = {
     name: nameEl?.textContent.trim() || '',
     title: titleEl?.textContent.trim() || '',
     location: locationEl?.textContent.trim() || '',
+    bio: bioEl?.textContent.trim() || '',
   };
   profileTop.dataset.originalData = JSON.stringify(originalData);
 
@@ -197,6 +201,18 @@ function enterEditMode() {
     locationEl.replaceWith(locationInput);
   }
 
+  // Replace bio with editable textarea
+  if (bioEl && profileAbout) {
+    const bioTextarea = document.createElement('textarea');
+    bioTextarea.className = 'profile-edit-input profile-bio-input';
+    bioTextarea.value = bioEl.textContent.trim();
+    bioTextarea.setAttribute('aria-label', 'Edit your bio');
+    bioTextarea.placeholder = 'Tell us about yourself';
+    bioTextarea.style.minHeight = '120px';
+    bioTextarea.style.resize = 'vertical';
+    bioEl.replaceWith(bioTextarea);
+  }
+
   // Update edit button to show "Cancel" text alongside action buttons
   const editBtn = document.getElementById('profile-edit-toggle');
   if (editBtn) {
@@ -219,14 +235,17 @@ function enterEditMode() {
  */
 function exitEditMode() {
   const profileTop = document.querySelector('.profile-top');
+  const profileAbout = document.querySelector('.profile-about');
   if (!profileTop) return;
 
   profileTop.classList.remove('editing');
+  if (profileAbout) profileAbout.classList.remove('editing');
 
   // Get edited values
   const nameInput = profileTop.querySelector('.profile-name-input');
   const titleInput = profileTop.querySelector('.profile-title-input');
   const locationInput = profileTop.querySelector('.profile-location-input');
+  const bioInput = profileAbout?.querySelector('.profile-bio-input');
 
   // Convert back to display elements
   if (nameInput) {
@@ -249,6 +268,12 @@ function exitEditMode() {
     locationInput.replaceWith(locationEl);
   }
 
+  if (bioInput && profileAbout) {
+    const bioEl = document.createElement('p');
+    bioEl.textContent = bioInput.value.trim() || 'Update your bio';
+    bioInput.replaceWith(bioEl);
+  }
+
   // Restore edit button
   const editBtn = document.getElementById('profile-edit-toggle');
   if (editBtn) {
@@ -269,9 +294,11 @@ function exitEditMode() {
  */
 function saveProfileChanges() {
   const profileTop = document.querySelector('.profile-top');
+  const profileAbout = document.querySelector('.profile-about');
   const nameInput = profileTop?.querySelector('.profile-name-input');
   const titleInput = profileTop?.querySelector('.profile-title-input');
   const locationInput = profileTop?.querySelector('.profile-location-input');
+  const bioInput = profileAbout?.querySelector('.profile-bio-input');
 
   // Validate inputs
   if (!nameInput?.value.trim()) {
@@ -280,11 +307,16 @@ function saveProfileChanges() {
     return;
   }
 
-  // Prepare data to save
+  // Get existing profile data to preserve fields set from create-profile
+  const existingData = JSON.parse(localStorage.getItem(PROFILE_STORAGE_KEY) || '{}');
+
+  // Prepare updated data, preserving existing fields
   const profileData = {
+    ...existingData, // Preserve all existing fields
     name: nameInput?.value.trim() || '',
     title: titleInput?.value.trim() || '',
     location: locationInput?.value.trim() || '',
+    bio: bioInput?.value.trim() || existingData.bio || '',
     lastUpdated: new Date().toISOString(),
   };
 
@@ -862,9 +894,96 @@ function handlePhotoUpload(event) {
 }
 
 /**
+ * Load profile data from localStorage and display on profile.html
+ * Updates name, title, company, location, bio, skills, and social links
+ */
+function loadProfileData() {
+  const profileData = localStorage.getItem(PROFILE_STORAGE_KEY);
+  if (!profileData) return;
+
+  try {
+    const data = JSON.parse(profileData);
+
+    // Update name (h1 in profile-top)
+    const nameEl = document.querySelector('.profile-top h1');
+    if (nameEl) {
+      nameEl.textContent = data.name || 'Profile';
+    }
+
+    // Update title and company (p.lead in profile-top)
+    const titleEl = document.querySelector('.profile-top .lead');
+    if (titleEl) {
+      titleEl.textContent = data.title
+        ? `${data.title}${data.company ? ' @ ' + data.company : ''}`
+        : 'Update your profile';
+    }
+
+    // Update location
+    const locationEl = document.querySelector('.profile-top > p:not(.lead)');
+    if (locationEl) {
+      locationEl.textContent = data.location || '';
+    }
+
+    // Update bio (show placeholder only if no bio has been entered)
+    const bioEl = document.querySelector('.profile-about p');
+    if (bioEl) {
+      // Only show mock bio if user hasn't created a bio yet
+      if (!data.bio || !data.bio.trim()) {
+        bioEl.textContent = `Hi 👋, I'm Linda Kovacs and I'm a Sr Software Engineer @ Accenture. Portofolio:
+
+I am a Full Stack Developer, Women Techmakers Ambassador, Google Developer Group Lead for Capital Region, Journalist/Reporter Radio, TV, Magazine. I speak English, Italian, Romanian in daily basis.
+
+In 2020 I enrolled in a 10 months Full Stack Deeveloper online Bootcamp at Tripple Ten, started in Februay 2020. During my leanring journey I helped other students with questions related to course/sprints assignements and projects. The curricullum provides a wide range of projects based on the following Full Stack Development technologies: HTML5, CSS3, flexbox, grid layout, BEM, Media queries, transition, JavaScript/JSX, DOM, Debugging, Git, Git/Github, Figma, Form validation, OOP, Webpack, NPM, React, React components, React Hooks, Node.js, Express.js, Database, MongoDB, Mongoose, API, Microsoft Azure Cloud.`;
+      } else {
+        // Display user's actual bio
+        bioEl.textContent = data.bio;
+      }
+    }
+
+    // Update skills
+    const skillsContainer = document.querySelector('.skills');
+    if (skillsContainer && data.skills) {
+      const skillsArray = data.skills
+        .split(',')
+        .map((s) => s.trim())
+        .filter((s) => s);
+      skillsContainer.innerHTML = skillsArray
+        .map((skill) => `<div class="p-1"><i class="fa fa-check"></i> ${skill}</div>`)
+        .join('');
+    }
+
+    // Update social links (website, linkedin, github, twitter, facebook, youtube, instagram)
+    if (data.social) {
+      const iconLinks = document.querySelectorAll('.profile-top .icons a');
+      if (iconLinks.length >= 7) {
+        // Website (globe icon) - index 0
+        if (data.social.website) iconLinks[0].href = data.social.website;
+        // LinkedIn - index 1
+        if (data.social.linkedin) iconLinks[1].href = data.social.linkedin;
+        // GitHub - index 2
+        if (data.social.github) iconLinks[2].href = data.social.github;
+        // Twitter - index 3
+        if (data.social.twitter) iconLinks[3].href = data.social.twitter;
+        // Facebook - index 4
+        if (data.social.facebook) iconLinks[4].href = data.social.facebook;
+        // YouTube - index 5
+        if (data.social.youtube) iconLinks[5].href = data.social.youtube;
+        // Instagram - index 6
+        if (data.social.instagram) iconLinks[6].href = data.social.instagram;
+      }
+    }
+
+    console.log('Profile data loaded from localStorage:', data);
+  } catch (e) {
+    console.error('Error loading profile data:', e);
+  }
+}
+
+/**
  * Initialize experience and education rendering on page load
  */
 document.addEventListener('DOMContentLoaded', function () {
+  loadProfileData();
   renderExperienceList();
   renderEducationList();
   loadProfilePhoto();
