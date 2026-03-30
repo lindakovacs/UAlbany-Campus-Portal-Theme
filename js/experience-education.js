@@ -208,15 +208,15 @@ function createEducationForm(entry) {
         />
       </div>
       <div class="form-group">
-        <label for="field-${entry?.id}">Field of Study *</label>
+        <label for="field-${entry?.id}">Minor *</label>
         <input 
           type="text" 
           id="field-${entry?.id}" 
           class="form-control edu-field" 
           value="${entry?.field || ''}" 
-          placeholder="Field of Study" 
+          placeholder="Minor" 
           required
-          aria-label="Field of study"
+          aria-label="Minor"
         />
       </div>
     </div>
@@ -366,7 +366,7 @@ function restoreEducationEntries() {
       <h3>${escapeHtml(entry.school)}</h3>
       <p>${escapeHtml(entry.from)} - ${escapeHtml(entry.to)}</p>
       <p><strong>Degree: </strong>${escapeHtml(entry.degree)}</p>
-      <p><strong>Field Of Study: </strong>${escapeHtml(entry.field)}</p>
+      <p><strong>Minor: </strong>${escapeHtml(entry.field)}</p>
       ${entry.description ? `<p><strong>Description: </strong>${escapeHtml(entry.description)}</p>` : ''}
       <div class="entry-actions">
         <button class="btn btn-small btn-light edit-entry-btn" aria-label="Edit this education entry">
@@ -641,7 +641,7 @@ function saveEducationEntry(form) {
   const description = form.querySelector('.edu-description').value.trim();
 
   if (!school || !degree || !field || !from) {
-    alert('Please fill in all required fields: School, Degree, Field of Study, and From Date');
+    alert('Please fill in all required fields: School, Degree, Minor, and From Date');
     return;
   }
 

@@ -581,12 +581,14 @@ function deleteExperience(expId) {
  */
 /**
  * Format date to readable string
- * @param {string} dateStr - ISO date string
- * @returns {string} - Formatted date
+ * @param {string} dateStr - ISO date string (YYYY-MM-DD)
+ * @returns {string} - Formatted date (e.g., "Jan 2024")
  */
 function formatDate(dateStr) {
   if (!dateStr) return '';
-  const date = new Date(dateStr);
+  // Split ISO date string to create local date (avoids timezone offset issues)
+  const [year, month, day] = dateStr.split('-');
+  const date = new Date(year, month - 1, day);
   return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
 }
 
@@ -594,10 +596,19 @@ function formatDate(dateStr) {
  * Render experience list in DOM
  */
 function renderExperienceList() {
-  const experiences = getExperienceList();
+  let experiences = getExperienceList();
   const container = document.getElementById('profile-exp');
 
   if (!container) return;
+
+  // Sort experiences: current first, then by most recent
+  experiences = experiences.sort((a, b) => {
+    if (a.current && !b.current) return -1;
+    if (!a.current && b.current) return 1;
+    const dateA = new Date(a.to || a.from);
+    const dateB = new Date(b.to || b.from);
+    return dateB - dateA;
+  });
 
   // Remove only existing experience items (class="experience-list div")
   const existingItems = container.querySelectorAll('.exp-item');
@@ -607,10 +618,11 @@ function renderExperienceList() {
   experiences.forEach((exp) => {
     const expDiv = document.createElement('div');
     expDiv.className = 'exp-item';
+    const currentBadge = exp.current ? '<span class="badge badge-success" style="margin-left: 0.5rem;">Current</span>' : '';
     expDiv.innerHTML = `
       <div style="display: flex; justify-content: space-between; align-items: start; gap: 1rem;">
         <div style="flex: 1;">
-          <h3 class="text-dark">${exp.company}</h3>
+          <h3 class="text-dark">${exp.company}${currentBadge}</h3>
           <p><strong>Position:</strong> ${exp.title}</p>
           ${exp.location ? `<p><strong>Location:</strong> ${exp.location}</p>` : ''}
           <p>
@@ -619,9 +631,14 @@ function renderExperienceList() {
           </p>
           ${exp.description ? `<p><strong>Description:</strong> ${exp.description}</p>` : ''}
         </div>
-        <button class="btn btn-danger btn-sm" onclick="deleteExperience('${exp.id}')" style="white-space: nowrap; margin-top: 0.5rem;">
-          <i class="fas fa-trash"></i> Delete
-        </button>
+        <div style="display: flex; gap: 0.5rem; white-space: nowrap; margin-top: 0.5rem;">
+          <button class="btn btn-primary btn-sm" onclick="editExperienceFromProfile('${exp.id}')" style="white-space: nowrap;">
+            <i class="fas fa-edit"></i> Edit
+          </button>
+          <button class="btn btn-danger btn-sm" onclick="deleteExperience('${exp.id}')" style="white-space: nowrap;">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </div>
       </div>
       <hr style="margin: 1rem 0;">
     `;
@@ -633,10 +650,19 @@ function renderExperienceList() {
  * Render education list in DOM
  */
 function renderEducationList() {
-  const educations = getEducationList();
+  let educations = getEducationList();
   const container = document.getElementById('profile-edu');
 
   if (!container) return;
+
+  // Sort educations: current first, then by most recent
+  educations = educations.sort((a, b) => {
+    if (a.current && !b.current) return -1;
+    if (!a.current && b.current) return 1;
+    const dateA = new Date(a.to || a.from);
+    const dateB = new Date(b.to || b.from);
+    return dateB - dateA;
+  });
 
   // Remove only existing education items
   const existingItems = container.querySelectorAll('.edu-item');
@@ -646,21 +672,27 @@ function renderEducationList() {
   educations.forEach((edu) => {
     const eduDiv = document.createElement('div');
     eduDiv.className = 'edu-item';
+    const currentBadge = edu.current ? '<span class="badge badge-success" style="margin-left: 0.5rem;">Current</span>' : '';
     eduDiv.innerHTML = `
       <div style="display: flex; justify-content: space-between; align-items: start; gap: 1rem;">
         <div style="flex: 1;">
-          <h3 class="text-dark">${edu.school}</h3>
+          <h3 class="text-dark">${edu.school}${currentBadge}</h3>
           <p><strong>Degree:</strong> ${edu.degree}</p>
-          ${edu.fieldofstudy ? `<p><strong>Field of Study:</strong> ${edu.fieldofstudy}</p>` : ''}
+          ${edu.fieldofstudy ? `<p><strong>Minor:</strong> ${edu.fieldofstudy}</p>` : ''}
           <p>
             <strong>From:</strong> ${formatDate(edu.from)}
             ${edu.to ? `<strong>To:</strong> ${formatDate(edu.to)}` : '<strong>To:</strong> Now'}
           </p>
           ${edu.description ? `<p><strong>Description:</strong> ${edu.description}</p>` : ''}
         </div>
-        <button class="btn btn-danger btn-sm" onclick="deleteEducation('${edu.id}')" style="white-space: nowrap; margin-top: 0.5rem;">
-          <i class="fas fa-trash"></i> Delete
-        </button>
+        <div style="display: flex; gap: 0.5rem; white-space: nowrap; margin-top: 0.5rem;">
+          <button class="btn btn-primary btn-sm" onclick="editEducationFromProfile('${edu.id}')" style="white-space: nowrap;">
+            <i class="fas fa-edit"></i> Edit
+          </button>
+          <button class="btn btn-danger btn-sm" onclick="deleteEducation('${edu.id}')" style="white-space: nowrap;">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </div>
       </div>
       <hr style="margin: 1rem 0;">
     `;
@@ -701,7 +733,7 @@ function addEducation(educationData) {
     !educationData.fieldofstudy ||
     !educationData.from
   ) {
-    alert('School, Degree, Field of Study, and From Date are required');
+    alert('School, Degree, Minor, and From Date are required');
     return false;
   }
 
@@ -731,6 +763,24 @@ function deleteEducation(eduId) {
   saveEducationList(educations);
   renderEducationList();
   announceA11yChange('Education deleted');
+}
+
+/**
+ * Edit experience from profile.html - navigate to form page
+ * @param {string} expId - Experience ID to edit
+ */
+function editExperienceFromProfile(expId) {
+  sessionStorage.setItem('editingExperienceId', expId);
+  window.location.href = 'add-experience.html';
+}
+
+/**
+ * Edit education from profile.html - navigate to form page
+ * @param {string} eduId - Education ID to edit
+ */
+function editEducationFromProfile(eduId) {
+  sessionStorage.setItem('editingEducationId', eduId);
+  window.location.href = 'add-education.html';
 }
 
 /**

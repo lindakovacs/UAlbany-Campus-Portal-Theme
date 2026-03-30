@@ -137,15 +137,30 @@
     <script>
       /**
        * Format date to readable string
-       * @param {string} dateStr - ISO date string or date input value
-       * @returns {string} - Formatted date
+       * @param {string} dateStr - ISO date string (YYYY-MM-DD)
+       * @returns {string} - Formatted date (e.g., "Jan 2024")
        */
       function formatDashboardDate(dateStr) {
         if (!dateStr) return '';
-        const date = new Date(dateStr);
+        // Split ISO date string to create local date (avoids timezone offset issues)
+        const [year, month, day] = dateStr.split('-');
+        const date = new Date(year, month - 1, day);
         return date.toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'short',
+        });
+      }
+
+      /**
+       * Sort experiences: current first, then by most recent
+       */
+      function sortExperiences(experiences) {
+        return experiences.sort((a, b) => {
+          if (a.current && !b.current) return -1;
+          if (!a.current && b.current) return 1;
+          const dateA = new Date(a.to || a.from);
+          const dateB = new Date(b.to || b.from);
+          return dateB - dateA;
         });
       }
 
@@ -156,15 +171,18 @@
         const tbody = document.getElementById('dashboard-experience-tbody');
         if (!tbody) return;
 
-        const experienceList = JSON.parse(
+        let experienceList = JSON.parse(
           localStorage.getItem('experienceList') || '[]',
         );
+
+        // Sort experiences
+        experienceList = sortExperiences(experienceList);
 
         tbody.innerHTML = '';
 
         if (experienceList.length === 0) {
           tbody.innerHTML =
-            '<tr><td colspan="4" class="text-center text-muted">No experience yet</td></tr>';
+            '<tr><td colspan="5" class="text-center text-muted">No experience yet</td></tr>';
           return;
         }
 
@@ -172,13 +190,17 @@
           const fromDate = formatDashboardDate(exp.from);
           const toDate = exp.to ? formatDashboardDate(exp.to) : 'Now';
           const years = `${fromDate} - ${toDate}`;
+          const currentBadge = exp.current ? '<span class="badge badge-success">Current</span>' : '';
 
           const row = document.createElement('tr');
           row.innerHTML = `
-            <td>${exp.company}</td>
+            <td>${exp.company} ${currentBadge}</td>
             <td class="hide-sm">${exp.title}</td>
             <td class="hide-sm">${years}</td>
             <td>
+              <button class="btn btn-primary btn-sm" onclick="window.location.href='add-experience.html'; sessionStorage.setItem('editingExperienceId', '${exp.id}');" style="margin-right: 0.25rem;">
+                <i class="fas fa-edit"></i> Edit
+              </button>
               <button class="btn btn-danger btn-sm" onclick="deleteDashboardExperience('${exp.id}')">
                 <i class="fas fa-trash"></i> Delete
               </button>
@@ -189,21 +211,37 @@
       }
 
       /**
+       * Sort educations: current first, then by most recent
+       */
+      function sortEducations(educations) {
+        return educations.sort((a, b) => {
+          if (a.current && !b.current) return -1;
+          if (!a.current && b.current) return 1;
+          const dateA = new Date(a.to || a.from);
+          const dateB = new Date(b.to || b.from);
+          return dateB - dateA;
+        });
+      }
+
+      /**
        * Populate education table from localStorage
        */
       function populateDashboardEducation() {
         const tbody = document.getElementById('dashboard-education-tbody');
         if (!tbody) return;
 
-        const educationList = JSON.parse(
+        let educationList = JSON.parse(
           localStorage.getItem('educationList') || '[]',
         );
+
+        // Sort educations
+        educationList = sortEducations(educationList);
 
         tbody.innerHTML = '';
 
         if (educationList.length === 0) {
           tbody.innerHTML =
-            '<tr><td colspan="4" class="text-center text-muted">No education yet</td></tr>';
+            '<tr><td colspan="5" class="text-center text-muted">No education yet</td></tr>';
           return;
         }
 
@@ -211,15 +249,19 @@
           const fromDate = formatDashboardDate(edu.from);
           const toDate = edu.to ? formatDashboardDate(edu.to) : 'Now';
           const years = `${fromDate} - ${toDate}`;
+          const currentBadge = edu.current ? '<span class="badge badge-success">Current</span>' : '';
 
           const row = document.createElement('tr');
           row.innerHTML = `
-            <td>${edu.school}</td>
+            <td>${edu.school} ${currentBadge}</td>
             <td class="hide-sm">${edu.degree}</td>
             <td class="hide-sm">${years}</td>
             <td>
+              <button class="btn btn-primary btn-sm" onclick="window.location.href='add-education.html'; sessionStorage.setItem('editingEducationId', '${edu.id}');" style="margin-right: 0.25rem;">
+                <i class="fas fa-edit"></i> Edit
+              </button>
               <button class="btn btn-danger btn-sm" onclick="deleteDashboardEducation('${edu.id}')">
-                <i class="fas fa-trash"></i> Delete
+                <i class="fas fa-trash\"></i> Delete
               </button>
             </td>
           `;
